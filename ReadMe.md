@@ -104,14 +104,14 @@ The highlighted part in the below diagram shows the new services / components ad
 
 The below diagram shows the interaction between the components / objects in the background "Receiver" service.
 
-![](/images/object-interaction.png)
+![](/images/object-interaction.PNG)
 
 
 ## Scheduled background task with Cron expression
 
 A cron expression is a format to specify a time based schedule to execute a task. NCrontab is the Nuget package included in the "Publisher.Service" to parse the expression and determine the next run. The service is configured to trigger the background process at the start of every month to generate the account statement for the previous month.
 
-![](/images/cron-schedule.png)
+![](/images/cron-schedule.PNG)
 
 Reference: [Run scheduled background tasks in ASP.NET Core](https://thinkrethink.net/2018/05/31/run-scheduled-background-tasks-in-asp-net-core/)
 
@@ -121,11 +121,11 @@ There's a need for the microservices to communicate with each other to let other
 
 Message based asynchronous communication is used to trigger a event. It's a point-to-point communication with a single receiver. This means when a message is published to the queue, there's a single receiver that consumes the message for processing. The below diagram depicts the communication between "Publisher / Scheduler" and "Receiver" 
 
-![](/images/asynchronous-communication.png)
+![](/images/asynchronous-communication.PNG)
 
 The background service "Receiver" communicates with dependent services (Identity and Transaction) through Http request to get the actual data for background processing.
 
-![](/images/synchronous-communication.png)
+![](/images/synchronous-communication.PNG)
 
 
 ## How to run the application
