@@ -19,13 +19,13 @@
 
 ### Related Article
 
-[Simple Transaction: Microservices Sample Architecture for .NET Core Application](https://www.codeproject.com/Articles/1277140/Simple-Transaction)
+[Simple Transaction: Microservices Sample Architecture for .NET Core Application](https://github.com/johnph/simple-transaction)
 
 ## Introduction 
 
-This is Part 2 of [Simple Transaction: Sample .Net Core application](https://www.codeproject.com/Articles/1277140/Simple-Transaction), a continuation to demonstrate how to build a command-driven / Messaging based solution using .Net Core. The sample application which was used in Part 1 is extended with few additional microservices.
+This is Part 2 of [Simple Transaction: Sample .Net Core application](https://github.com/johnph/simple-transaction), a continuation to demonstrate how to build a command-driven / Messaging based solution using .Net Core. The sample application which was used in Part 1 is extended with few additional microservices.
 
-The original sample in [Part 1](https://www.codeproject.com/Articles/1277140/Simple-Transaction) implements microservices for a simple automated banking feature like Balance, Deposit, Withdraw in ASP.NET Core Web API with C#.Net, Entity Framework and SQL Server. This Part 2 sample is about a feature to generate monthly account statement through background service and store it in No-SQL Db (MongoDB and Redis Cache) which is then accessed through a seperate microservice.
+The original sample in [Part 1](https://github.com/johnph/simple-transaction) implements microservices for a simple automated banking feature like Balance, Deposit, Withdraw in ASP.NET Core Web API with C#.Net, Entity Framework and SQL Server. This Part 2 sample is about a feature to generate monthly account statement through background service and store it in No-SQL Db (MongoDB and Redis Cache) which is then accessed through a seperate microservice.
 
 ## Problem Description
 
@@ -87,11 +87,11 @@ This microservice exposes a WepApi endpoint that communicates with the Redis Cac
 
 #### End-point implemented in "Statement API" to access account statement
 
-1. Route: **"api/statement/{month}"** [HttpPost] - To access the account statement of authenticated user for a given month
+1. Route: **"api/statement/{month}"** [HttpGet] - To access the account statement of authenticated user for a given month
 
 #### End-point configured and accessible through API Gateway to access account statement
 
-1. Route: **"statement/{month}"** [HttpPost] - To access the account statement of authenticated user.
+1. Route: **"statement/{month}"** [HttpGet] - To access the account statement of authenticated user.
 
 ## Solution Structure
 
@@ -130,7 +130,7 @@ The background service "Receiver" communicates with dependent services (Identity
 
 ## How to run the application
 
-Follow the same instruction that was given in the [previous article](https://www.codeproject.com/Articles/1277140/Simple-Transaction) to run the application. In addition to that, the newly added services (Publisher, Receiver and Statement API) should also be up and running. 
+Follow the same instruction that was given in the [previous article](https://github.com/johnph/simple-transaction) to run the application. In addition to that, the newly added services (Publisher, Receiver and Statement API) should also be up and running. 
 
 You can update the MongoDB and Redis Cache connection string in the appsettings.json file of "Receiver.Service" and "Statement.Service" if required.
 
