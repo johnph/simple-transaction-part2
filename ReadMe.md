@@ -127,11 +127,11 @@ There's a need for the microservices to communicate with each other to let other
 
 Message based asynchronous communication is used to trigger a event. It's a point-to-point communication with a single receiver. This means when a message is published to the queue, there's a single receiver that consumes the message for processing. The below diagram show the communication between "Publisher / Scheduler" and "Receiver through message bus" 
 
-![](/images/asynchronous-communication.PNG)
+![](/images/asynchronous-communication-updated.PNG)
 
 The background service "Receiver" communicates with dependent services (Identity and Transaction) through Http request to get the actual data for background processing.
 
-![](/images/synchronous-communication.PNG)
+![](/images/synchronous-communication-updated.PNG)
 
 
 ## How to run the application
