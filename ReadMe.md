@@ -1,6 +1,6 @@
 # Simple Transaction: Microservices sample architecture for .Net Core Application - Part 2
 
-### A simple way to write a queue based messaging solution in .Net core to solve complex problems
+### A simple way to design a queue based messaging solution in .Net core to solve complex problems
 
 * [Introduction](#Introduction)
 * [Problem Description](#Problem-Description)
@@ -104,8 +104,14 @@ The highlighted part in the below diagram shows the new services / components ad
 
 The below diagram shows the interaction between the components / objects in the background "Receiver" service.
 
-![](/images/object-interaction.PNG)
+![](/images/object-interaction-updated.PNG)
 
+* **Message Queues** : Background service both "Publisher" and "Receiver" works with two different queues. One of them is "Trigger" Queue. The initial trigger / command from the scheduler is send to "Trigger" Queue which is processed by the "Receiver" service. The second Queue in the workflow is the "Statement" queue which receives input from the "Trigger" processor and processed by "Statement" processor. 
+* **Message Types**: The background service understands Messages of Type ICommand which is defined in "Publisher.Framework". Two message types are defined to work with two different queues, "TriggerMessage" and "StatementMessage".
+* **Publisher**: Sends "Trigger" message into "Trigger" queue on a scheduled time by the scheduler or on demand when API endpoint is called.
+* **Receiver**: Consumes the "Trigger" message and prepares a "Statement" Message for the list of user accounts and publishes a "Statement" message into next queue for each user account. "Receiver" service then consumes the "Statement" message and calls the processor.
+* **Processor**: Contains the processing logic to prepare the account statement.
+* **Document Repository**: Contains the data logic to save the document to MongoDb.
 
 ## Scheduled background task with Cron expression
 
