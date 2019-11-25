@@ -1,4 +1,4 @@
-# Simple Transaction: Microservices sample architecture for .Net Core Application - Part 2
+# Simple Transaction: Designing Queue based messaging solution in .Net Core Microservices application
 
 ### A simple way to design a queue based messaging solution in .Net core to solve complex problems
 
@@ -23,9 +23,9 @@
 
 ## Introduction 
 
-This is Part 2 of [Simple Transaction: Sample .Net Core application](https://github.com/johnph/simple-transaction), a continuation to demonstrate how to build a command-driven / Messaging based solution using .Net Core. The sample application which was used in Part 1 is extended with few additional microservices.
+This is second part of [Simple Transaction: Sample .Net Core application](https://github.com/johnph/simple-transaction), a continuation to demonstrate how to build a command-driven / Messaging based solution using .Net Core. The sample application which was used in [previous article](https://github.com/johnph/simple-transaction) is extended with few additional microservices.
 
-The original sample in [Part 1](https://github.com/johnph/simple-transaction) implements microservices for a simple automated banking feature like Balance, Deposit, Withdraw in ASP.NET Core Web API with C#.Net, Entity Framework and SQL Server. This Part 2 sample is about a feature to generate monthly account statement through background service and store it in No-SQL Db (MongoDB and Redis Cache) which is then accessed through a seperate microservice.
+The [Previous Sample](https://github.com/johnph/simple-transaction) implements microservices for a simple automated banking feature like Balance, Deposit, Withdraw in ASP.NET Core Web API with C#.NET, Entity Framework and SQL Server. This second part is about design a queue based messaging solution to plug-in a feature to generate monthly account statement through background service and store it in No-SQL Db (MongoDB) which is then accessed through a separate microservice.
 
 ## Problem Description
 
@@ -43,7 +43,7 @@ The below shown is the updated version of the architecture diagram. The highligh
 
 ## Solution Design
 
-The below diagram shows the design of separating the Command and Query responsibility. It has three core components that seperates the write operation using the Command / Message processing and read operation using Query data. 
+The below diagram shows the high level design of the background implmentation that separate the Command responsibility from Querying data. It has three core components that seperates the write operation using the Command / Message processing and read operation using Query data. 
 
 * Publisher API / Scheduler Service
 * Receiver Service
@@ -125,7 +125,7 @@ Reference: [Run scheduled background tasks in ASP.NET Core](https://thinkrethink
 
 There's a need for the microservices to communicate with each other to let other services know when changes happen or to get dependent information. Here, in our sample , both Synchronous and Asynchronous mechanism are used to establish communication between microservices.
 
-Message based asynchronous communication is used to trigger a event. It's a point-to-point communication with a single receiver. This means when a message is published to the queue, there's a single receiver that consumes the message for processing. The below diagram depicts the communication between "Publisher / Scheduler" and "Receiver" 
+Message based asynchronous communication is used to trigger a event. It's a point-to-point communication with a single receiver. This means when a message is published to the queue, there's a single receiver that consumes the message for processing. The below diagram show the communication between "Publisher / Scheduler" and "Receiver through message bus" 
 
 ![](/images/asynchronous-communication.PNG)
 
@@ -138,7 +138,7 @@ The background service "Receiver" communicates with dependent services (Identity
 
 Follow the same instruction that was given in the [previous article](https://github.com/johnph/simple-transaction) to run the application. In addition to that, the newly added services (Publisher, Receiver and Statement API) should also be up and running. 
 
-You can update the MongoDB and Redis Cache connection string in the appsettings.json file of "Receiver.Service" and "Statement.Service" if required.
+You need to have the setup of MongoDB and Redis Cache either in your local environment or in the cloud. Following that, You can update the MongoDB and Redis Cache connection setup in the appsettings.json file of "Receiver.Service" and "Statement.Service" accordingly.
 
 For the database changes, refer to database project included in this version of code which has the updated script. 
 
